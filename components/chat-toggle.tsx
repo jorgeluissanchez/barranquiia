@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "./ui/button";
 import { Bot } from "lucide-react";
+import { Input } from "./ui/input";
+import Microphone from "./microphone";
 
 export function ChatToggle() {
   const [messages, setMessages] = React.useState([
@@ -71,7 +73,11 @@ export function ChatToggle() {
           }
         </div>
         <DrawerFooter>
+          <div className="flex items-center space-x-2">
+          <Input placeholder="Escribe un mensaje" />
           <Button>Enviar</Button>
+          <Microphone />
+          </div>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
