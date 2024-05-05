@@ -2,6 +2,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Button } from "@/components/ui/button"
+import useSound from 'use-sound';
 
 import { cn } from "@/lib/utils"
 import {
@@ -44,10 +45,15 @@ function Word({ className, variant, ...props }: WordProps) {
   const wordRef = React.useRef(null);
   const [text, setText] = React.useState('')
   const [word, setWord] = React.useState('')
-  const handleClick = () => {
+  const handleClick = async () => {
     const paragraph = wordRef.current.parentNode
     setText(paragraph.textContent)
     setWord(wordRef.current.textContent)
+    const res = await fetch(`https://ia-barranquia.onrender.com/get-audio?word=${wordRef.current.textContent}`)
+    const blob =  await res.blob() 
+    const url = window.URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play()
   }
   return (
     <Dialog>
@@ -68,7 +74,6 @@ function Word({ className, variant, ...props }: WordProps) {
           </DialogDescription>
         </DialogHeader>
         <div className="p-4 pb-0">
-
         </div>
       </DialogContent>
     </Dialog>
